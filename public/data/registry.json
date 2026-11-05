@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "isSampleData": true,
+    "note": "All entries below are fictional sample data for demonstration.",
+    "categories": ["Equipment", "Software", "Documents", "Facilities"],
+    "statuses": ["Active", "Pending", "Retired"]
+  },
+  "entries": [
+    {
+      "id": "REG-0001",
+      "name": "Community Workshop 3D Printer",
+      "category": "Equipment",
+      "description": "Dual-extruder 3D printer available to members for prototyping. Includes a starter filament set and a monthly maintenance schedule.",
+      "registeredOn": "2025-03-14",
+      "status": "Active",
+      "contactName": "Sample Contact A",
+      "contactEmail": "contact-a@example.org",
+      "reference": "WS-EQ-114"
+    },
+    {
+      "id": "REG-0002",
+      "name": "Neighborhood Tool Library Catalog",
+      "category": "Software",
+      "description": "Open-source inventory app used to track lending of hand tools, ladders, and garden equipment across three pickup sites.",
+      "registeredOn": "2025-05-02",
+      "status": "Active",
+      "contactName": "Sample Contact B",
+      "contactEmail": "contact-b@example.org",
+      "reference": "SW-TL-021"
+    },
+    {
+      "id": "REG-0003",
+      "name": "Volunteer Handbook v2",
+      "category": "Documents",
+      "description": "Onboarding handbook covering safety procedures, code of conduct, and shift scheduling for new volunteers.",
+      "registeredOn": "2025-06-21",
+      "status": "Active",
+      "contactName": "Sample Contact C",
+      "contactEmail": "contact-c@example.org",
+      "reference": "DOC-VH-002"
+    },
+    {
+      "id": "REG-0004",
+      "name": "East Side Meeting Room",
+      "category": "Facilities",
+      "description": "Seats 24 with projector and accessible entrance. Bookable by registered community groups in two-hour blocks.",
+      "registeredOn": "2025-07-09",
+      "status": "Active",
+      "contactName": "Sample Contact D",
+      "contactEmail": "contact-d@example.org",
+      "reference": "FAC-ES-07"
+    },
+    {
+      "id": "REG-0005",
+      "name": "Laser Cutter (60W)",
+      "category": "Equipment",
+      "description": "Awaiting ventilation upgrade and safety sign-off before it can be opened to members.",
+      "registeredOn": "2025-09-30",
+      "status": "Pending",
+      "contactName": "Sample Contact A",
+      "contactEmail": "contact-a@example.org",
+      "reference": "WS-EQ-131"
+    },
+    {
+      "id": "REG-0006",
+      "name": "Legacy Member Database",
+      "category": "Software",
+      "description": "Retired spreadsheet-based member list, replaced by the new membership platform. Kept for historical reference only.",
+      "registeredOn": "2023-11-18",
+      "status": "Retired",
+      "contactName": "Sample Contact E",
+      "contactEmail": "contact-e@example.org",
+      "reference": "SW-MD-001"
+    },
+    {
+      "id": "REG-0007",
+      "name": "Emergency Response Plan",
+      "category": "Documents",
+      "description": "Evacuation routes, first-aid locations, and contact tree for all registered sites. Reviewed annually.",
+      "registeredOn": "2025-01-12",
+      "status": "Active",
+      "contactName": "Sample Contact C",
+      "contactEmail": "contact-c@example.org",
+      "reference": "DOC-ER-005"
+    },
+    {
+      "id": "REG-0008",
+      "name": "Garden Shed & Greenhouse",
+      "category": "Facilities",
+      "description": "Shared growing space with seed library, rain barrels, and a locked tool shed. Plot assignments are pending review.",
+      "registeredOn": "2026-02-04",
+      "status": "Pending",
+      "contactName": "Sample Contact F",
+      "contactEmail": "contact-f@example.org",
+      "reference": "FAC-GG-03"
+    },
+    {
+      "id": "REG-0009",
+      "name": "Sewing Machine Set",
+      "category": "Equipment",
+      "description": "Six domestic sewing machines and two sergers used in weekly repair-cafe sessions.",
+      "registeredOn": "2024-08-26",
+      "status": "Active",
+      "contactName": "Sample Contact G",
+      "contactEmail": "contact-g@example.org",
+      "reference": "WS-EQ-077"
+    },
+    {
+      "id": "REG-0010",
+      "name": "Old Event Signup Form",
+      "category": "Software",
+      "description": "Deprecated web form for event registration. Superseded by the shared booking calendar.",
+      "registeredOn": "2022-04-05",
+      "status": "Retired",
+      "contactName": "Sample Contact E",
+      "contactEmail": "contact-e@example.org",
+      "reference": "SW-EF-004"
+    }
+  ]
+}
