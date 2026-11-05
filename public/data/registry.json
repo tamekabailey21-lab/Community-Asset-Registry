@@ -2,8 +2,23 @@
   "meta": {
     "isSampleData": true,
     "note": "All entries below are fictional sample data for demonstration.",
-    "categories": ["Equipment", "Software", "Documents", "Facilities"],
-    "statuses": ["Active", "Pending", "Retired"]
+    "categories": [
+      "Equipment",
+      "Software",
+      "Documents",
+      "Facilities"
+    ],
+    "statuses": [
+      "Active",
+      "Pending",
+      "Retired"
+    ],
+    "riskLevels": [
+      "Low",
+      "Medium",
+      "High",
+      "Critical"
+    ]
   },
   "entries": [
     {
@@ -15,7 +30,13 @@
       "status": "Active",
       "contactName": "Sample Contact A",
       "contactEmail": "contact-a@example.org",
-      "reference": "WS-EQ-114"
+      "reference": "WS-EQ-114",
+      "riskLevel": "Medium",
+      "riskFactors": [
+        "Hot surfaces and moving parts",
+        "Fumes from some filaments",
+        "Requires trained operators"
+      ]
     },
     {
       "id": "REG-0002",
@@ -26,7 +47,12 @@
       "status": "Active",
       "contactName": "Sample Contact B",
       "contactEmail": "contact-b@example.org",
-      "reference": "SW-TL-021"
+      "reference": "SW-TL-021",
+      "riskLevel": "Low",
+      "riskFactors": [
+        "Single maintainer",
+        "No offline backup of inventory"
+      ]
     },
     {
       "id": "REG-0003",
@@ -37,7 +63,11 @@
       "status": "Active",
       "contactName": "Sample Contact C",
       "contactEmail": "contact-c@example.org",
-      "reference": "DOC-VH-002"
+      "reference": "DOC-VH-002",
+      "riskLevel": "Low",
+      "riskFactors": [
+        "Content can become outdated"
+      ]
     },
     {
       "id": "REG-0004",
@@ -48,7 +78,12 @@
       "status": "Active",
       "contactName": "Sample Contact D",
       "contactEmail": "contact-d@example.org",
-      "reference": "FAC-ES-07"
+      "reference": "FAC-ES-07",
+      "riskLevel": "Medium",
+      "riskFactors": [
+        "Occupancy limit of 24",
+        "Single accessible entrance"
+      ]
     },
     {
       "id": "REG-0005",
@@ -59,7 +94,13 @@
       "status": "Pending",
       "contactName": "Sample Contact A",
       "contactEmail": "contact-a@example.org",
-      "reference": "WS-EQ-131"
+      "reference": "WS-EQ-131",
+      "riskLevel": "High",
+      "riskFactors": [
+        "Fire hazard",
+        "Ventilation upgrade incomplete",
+        "Safety sign-off outstanding"
+      ]
     },
     {
       "id": "REG-0006",
@@ -70,7 +111,13 @@
       "status": "Retired",
       "contactName": "Sample Contact E",
       "contactEmail": "contact-e@example.org",
-      "reference": "SW-MD-001"
+      "reference": "SW-MD-001",
+      "riskLevel": "High",
+      "riskFactors": [
+        "Contains personal data",
+        "No access controls",
+        "No longer maintained"
+      ]
     },
     {
       "id": "REG-0007",
@@ -81,7 +128,12 @@
       "status": "Active",
       "contactName": "Sample Contact C",
       "contactEmail": "contact-c@example.org",
-      "reference": "DOC-ER-005"
+      "reference": "DOC-ER-005",
+      "riskLevel": "Medium",
+      "riskFactors": [
+        "Contact tree may be out of date",
+        "Depends on annual review"
+      ]
     },
     {
       "id": "REG-0008",
@@ -92,7 +144,12 @@
       "status": "Pending",
       "contactName": "Sample Contact F",
       "contactEmail": "contact-f@example.org",
-      "reference": "FAC-GG-03"
+      "reference": "FAC-GG-03",
+      "riskLevel": "Medium",
+      "riskFactors": [
+        "Chemical storage",
+        "Plot assignments unresolved"
+      ]
     },
     {
       "id": "REG-0009",
@@ -103,7 +160,11 @@
       "status": "Active",
       "contactName": "Sample Contact G",
       "contactEmail": "contact-g@example.org",
-      "reference": "WS-EQ-077"
+      "reference": "WS-EQ-077",
+      "riskLevel": "Low",
+      "riskFactors": [
+        "Needle and pinch hazards"
+      ]
     },
     {
       "id": "REG-0010",
@@ -114,7 +175,12 @@
       "status": "Retired",
       "contactName": "Sample Contact E",
       "contactEmail": "contact-e@example.org",
-      "reference": "SW-EF-004"
+      "reference": "SW-EF-004",
+      "riskLevel": "Medium",
+      "riskFactors": [
+        "Unsupported software",
+        "Collects personal data"
+      ]
     }
   ]
 }

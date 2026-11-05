@@ -164,6 +164,14 @@ textarea { min-height: 120px; resize: vertical; }
 .badge.Retired { background: var(--off-bg); color: var(--off); }
 .badge.cat { background: var(--primary-soft); color: var(--primary-dark); }
 .badge.local { background: var(--danger-bg); color: var(--danger); }
+.badge.risk-Low { background: var(--ok-bg); color: var(--ok); }
+.badge.risk-Medium { background: var(--warn-bg); color: var(--warn); }
+.badge.risk-High { background: var(--danger-bg); color: var(--danger); }
+.badge.risk-Critical { background: var(--danger); color: #fff; }
+.badges { display: inline-flex; gap: .35rem; flex-wrap: wrap; }
+.risk-box { margin-top: 1.25rem; padding: 1rem 1.25rem; border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); background: var(--bg); }
+.risk-box h2 { font-size: 1.1rem; }
+.risk-list { margin: 0; padding-left: 1.25rem; }
 .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; flex-wrap: wrap; }
 
 /* Panels / detail */

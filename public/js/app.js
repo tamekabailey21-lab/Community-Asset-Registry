@@ -29,6 +29,9 @@ const allEntries = () => [...state.published, ...loadLocal()];
 const announce = (msg) => { $live.textContent = ""; setTimeout(() => ($live.textContent = msg), 50); };
 
 function badge(status) { return h("span", { class: `badge ${status}` }, status); }
+function riskBadge(level) {
+  return level ? h("span", { class: `badge risk-${level}`, title: "Risk level" }, `${level} risk`) : null;
+}
 
 /* ---------- routing (hash based, so it works on any GitHub Pages subpath) ---------- */
 function parseHash() {
@@ -84,7 +87,8 @@ function renderHome() {
       stat(entries.length, "Total entries"),
       stat(count("Active"), "Active"),
       stat(count("Pending"), "Pending"),
-      stat(count("Retired"), "Retired")),
+      stat(count("Retired"), "Retired"),
+      stat(entries.filter((e) => e.riskLevel === "High" || e.riskLevel === "Critical").length, "High or critical risk")),
     h("h2", {}, "Recently registered"),
     cardGrid(sortEntries(entries, "date-desc").slice(0, 3)));
 }
@@ -99,7 +103,7 @@ function cardGrid(entries) {
       h("article", { class: "card" },
         h("div", { class: "card-top" },
           h("span", { class: "badge cat" }, e.category),
-          badge(e.status)),
+          h("span", { class: "badges" }, riskBadge(e.riskLevel), badge(e.status))),
         h("h3", {}, h("a", { href: `#/entry/${encodeURIComponent(e.id)}` }, e.name)),
         h("p", { class: "desc" }, e.description),
         h("div", { class: "meta" },
@@ -110,7 +114,8 @@ function cardGrid(entries) {
 
 function renderDirectory(params) {
   const { categories, statuses } = state.meta;
-  const f = { query: params.get("q") || "", category: params.get("category") || "", status: params.get("status") || "", sort: params.get("sort") || "name-asc" };
+  const riskLevels = state.meta.riskLevels;
+  const f = { query: params.get("q") || "", category: params.get("category") || "", status: params.get("status") || "", risk: params.get("risk") || "", sort: params.get("sort") || "name-asc" };
 
   const select = (id, label, options, value, all) =>
     h("div", {},
@@ -126,9 +131,10 @@ function renderDirectory(params) {
     h("select", { id: "sort" }, SORT_OPTIONS.map((o) => h("option", { value: o.value, selected: o.value === f.sort }, o.label))));
   const catSel = select("category", "Category", categories, f.category, "All categories");
   const statSel = select("status", "Status", statuses, f.status, "All statuses");
+  const riskSel = select("risk", "Risk level", riskLevels, f.risk, "All risk levels");
 
   const resetBtn = h("button", { class: "btn secondary small", type: "button", onclick: () => {
-    $search.value = ""; catSel.querySelector("select").value = ""; statSel.querySelector("select").value = ""; sortSel.querySelector("select").value = "name-asc";
+    $search.value = ""; catSel.querySelector("select").value = ""; statSel.querySelector("select").value = ""; riskSel.querySelector("select").value = ""; sortSel.querySelector("select").value = "name-asc";
     update(true);
   } }, "Reset filters");
 
@@ -136,12 +142,14 @@ function renderDirectory(params) {
     f.query = $search.value;
     f.category = catSel.querySelector("select").value;
     f.status = statSel.querySelector("select").value;
+    f.risk = riskSel.querySelector("select").value;
     f.sort = sortSel.querySelector("select").value;
 
     const p = new URLSearchParams();
     if (f.query) p.set("q", f.query);
     if (f.category) p.set("category", f.category);
     if (f.status) p.set("status", f.status);
+    if (f.risk) p.set("risk", f.risk);
     if (f.sort !== "name-asc") p.set("sort", f.sort);
     const qs = p.toString();
     history.replaceState(null, "", `#/directory${qs ? "?" + qs : ""}`);
@@ -160,7 +168,7 @@ function renderDirectory(params) {
     h("h1", {}, "Registry directory"),
     h("div", { class: "controls", role: "search" },
       h("div", { class: "search" }, h("label", { for: "q" }, "Search"), $search),
-      catSel, statSel, sortSel),
+      catSel, statSel, riskSel, sortSel),
     h("div", { class: "result-bar" }, $count, resetBtn),
     $results);
 
@@ -177,9 +185,15 @@ function renderDetail(id) {
   $main.append(
     h("p", { class: "breadcrumb" }, h("a", { href: "#/directory" }, "← Back to directory")),
     h("article", { class: "panel" },
-      h("div", { class: "card-top" }, h("span", { class: "badge cat" }, e.category), badge(e.status)),
+      h("div", { class: "card-top" }, h("span", { class: "badge cat" }, e.category), h("span", { class: "badges" }, riskBadge(e.riskLevel), badge(e.status))),
       h("h1", {}, e.name),
       h("p", {}, e.description),
+      h("section", { class: "risk-box", "aria-labelledby": "risk-h" },
+        h("h2", { id: "risk-h" }, "Risk factors"),
+        e.riskLevel ? h("p", {}, "Overall risk level: ", h("strong", {}, e.riskLevel)) : h("p", { class: "muted" }, "No risk level recorded."),
+        (e.riskFactors || []).length
+          ? h("ul", { class: "risk-list" }, e.riskFactors.map((r) => h("li", {}, r)))
+          : h("p", { class: "muted" }, "No specific risk factors listed.")),
       e.isLocal ? h("div", { class: "notice warn" }, "This entry exists only in this browser. It has not been published and other visitors cannot see it.") : null,
       h("dl", { class: "details" },
         h("dt", {}, "Entry ID"), h("dd", {}, e.id),
@@ -205,8 +219,8 @@ async function copyText(text, btn, okLabel) {
 }
 
 function renderSubmit() {
-  const { categories, statuses } = state.meta;
-  const $form = h("form", { class: "panel", novalidate: true, "aria-labelledby": "form-title" });
+  const { categories, statuses, riskLevels } = state.meta;
+  const $form =h("form", { class: "panel", novalidate: true, "aria-labelledby": "form-title" });
   const $status = h("div", { id: "form-status", tabindex: "-1" });
 
   const field = (name, label, control, { full = false, required = false, hint = "" } = {}) =>
@@ -224,6 +238,8 @@ function renderSubmit() {
       field("category", "Category", sel("category", categories), { required: true }),
       field("status", "Status", sel("status", statuses), { required: true }),
       field("description", "Description", h("textarea", { id: "description", name: "description", maxlength: "600", required: true }), { full: true, required: true, hint: "10 to 600 characters." }),
+      field("riskLevel", "Risk level", sel("riskLevel", riskLevels), { required: true }),
+      field("riskFactors", "Risk factors", h("textarea", { id: "riskFactors", name: "riskFactors", maxlength: "1100" }), { required: false, hint: "Optional. One factor per line, up to 10." }),
       field("contactName", "Contact name", h("input", { id: "contactName", name: "contactName", autocomplete: "name" })),
       field("contactEmail", "Contact email", h("input", { id: "contactEmail", name: "contactEmail", type: "email", autocomplete: "email" })),
       field("reference", "Reference code", h("input", { id: "reference", name: "reference", maxlength: "40" }), { full: true, hint: "Optional internal code or serial number." })),
